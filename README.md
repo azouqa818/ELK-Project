@@ -107,4 +107,28 @@ SSH into the control node and follow the steps below:
 - Run the playbook, and navigate to http://[Elk server private IP]:5601/app/kibana to check that the installation worked as expected.
 
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+_**Bonus**
+
+1. $ ssh username@<IP address> ---> ssh to your jump box you created in azure
+2. username@jumpbox:~$ sudo apt install docker.io (To install docker to jumpbox)
+3. username@jumpbox:~$ sudo docker pull filename/ansible (To pull docker image)
+4. username@jumpbox:~$ sudo docker run -ti filename/ansible bash
+5. root@6ee71760021c:~# ssh-keygen (Generate a public key within your ansible container to establish a connection with the webservers)
+6. root@6ee71760021c:~/.ssh# cat id_rsa.pub (To display the PK and copy)
+
+Azure potral: 
+
+- Go to --> Web server (you have created) | Reset password --> choose Reset SHH public key --> paste the PK from GitBash to the SSH public key field and click update.
+- Repeat the steps above for all web servers VMs. 
+
+
+7. root@6ee71760021c:~# ssh username@<Public IP address to webserver 1) - to check if the connection has been established
+Keep in mind that you have set your inbound rules in the security group on Azure protal
+8. root@6ee71760021c:~# nano /etc/ansible/ansible.cfg (to access and modify config file from =root to =username)
+10.root@6ee71760021c:~# nano /etc/ansible/hosts (To access hosts file and add [webservers] <web1 IP address> ansible_python_interpreter=/usr/bin/python3
+<web2 IP address> ansible_python_interpreter=/usr/bin/python3. ctrl + X Y to save modifications.
+11. root@6ee71760021c:~# ansible webservers -m ping (To test the connnections from the jumpbox to the webservers 1 + 2)
+12. azadmin@jumpbox:~$ sudo docker container list -a
+13. azadmin@jumpbox:~$ sudo docker start [Container name]
+14. azadmin@jumpbox:~$ sudo docker attach [Container name]
+15. Follow the steps mentioned earlier to install and configure your ELK server. 
