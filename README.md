@@ -40,7 +40,7 @@ The configuration details of each machine may be found below.
 
 | Name        | Function          | IP address | Operating System |
 |-------------|-------------------|------------|------------------|
-| Jump Box    | Gateway           | 10.0.0.4   | Ubuntu Linux     |
+| Jump Box    | Ansible container | 10.0.0.4   | Ubuntu Linux     |
 | Web-1 DVWA  | Web server - DVWA | 10.0.0.5   | Ubuntu Linux     |
 | Web-2 DVWA  | Web server - DVWA | 10.0.0.6   | Ubuntu Linux     |
 | Web-3 DVWA  | Web server - DVWA | 10.0.0.7   | Ubuntu Linux     |
@@ -77,7 +77,7 @@ The playbook implements the following tasks:
 - In the hosts config file, add a new group [Elkserver] and the Private IP to Elk server to the group
 - Install ELK server using install-ELK.yml
 - Edit FileBeat-Config.yml - line# 1105 and line# 1806 to add your ELK server public IP address and port
-- Edit MetricBeat-Congfig.yml
+- Edit MetricBeat-Config.yml
 - Install FileBeat.yml and MetricBeat.yml to your ansible container then edit the files
 - SSH to the ELK server from your ansible container 
 - Run the commmand [sudo docker ps] to ensure that it has been installed properly 
