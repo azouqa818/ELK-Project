@@ -51,10 +51,10 @@ The configuration details of each machine may be found below.
 The machines on the internal network are not exposed to the public Internet. 
 
 Only the Jump Box and the ELK-server machines can accept connections from the Internet. Access to these machines is only allowed from the following IP address:
-- 115.70.3.11
+- Personal IP address
 
 Machines within the network can only be accessed by ssh keys.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+- Via the Jump Box [10.0.0.4]
 
 A summary of the access policies in place can be found in the table below.
 
@@ -74,10 +74,13 @@ Ansible was used to automate configuration of the ELK machine. No configuration 
 The playbook implements the following tasks:
 
 - Install Docker using Docker.yml 
+- In the hosts config file, add a new group [Elkserver] and the Private IP to Elk server to the group
 - Install ELK server using install-ELK.yml
 - Edit FileBeat-Config.yml - line# 1105 and line# 1806 to add your ELK server public IP address and port
 - Edit MetricBeat-Congfig.yml
 - Install FileBeat.yml and MetricBeat.yml to your ansible container then edit the files
+- SSH to the ELK server from your ansible container 
+- Run the commmand [sudo docker ps] to ensure that it has been installed properly 
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
@@ -93,19 +96,15 @@ We have installed the following Beats on these machines:
 - Filebeat and Metricbeat 
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- Filebeat monitors log files/ locations, collects log events and forwards them to Elasticsearch of logstash for indexing.
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the filebteat.yml and metricbeat file to /etc/ansible/roles/files directory.
+- Update the files to include ELK's server Private IP to ELastic search and Kibana sections of the configuration file.
+- Run the playbook, and navigate to http://[Elk server private IP]:5601/app/kibana to check that the installation worked as expected.
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it? Copy the install-elk.yml to your ansible container
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running? http://elkserverpublicip:5601/app/kibana
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
